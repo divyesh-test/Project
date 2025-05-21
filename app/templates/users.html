@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<head><title>Submitted Users</title></head>
+<body>
+    <h2>Submitted Users</h2>
+    <ul>
+        {% for user in users %}
+            <li>{{ user[1] }} (Phone: {{ user[2] }}, Age: {{ user[3] }})</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
