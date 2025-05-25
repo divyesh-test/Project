@@ -88,6 +88,18 @@ resource "aws_instance" "my_ec2" {
     subnet_id = aws_subnet.my_public_subnet.id
     vpc_security_group_ids = [ aws_security_group.my_security_group.id ]
     key_name = aws_key_pair.my_key_pair.key_name
+
+
+    user_data = <<-EOF
+            #!/bin/bash
+            yum update -y
+            yum install -y git python3
+            pip3 install flask
+            git clone https://github.com/divyesh-test/Project.git /home/ec2-user/app
+            cd /home/ec2-user/app
+            FLASK_APP=app.py nohup python3 app.py > output.log 2>&1 &
+            EOF
+
 }
 
 output "public_ipv4_address" {
