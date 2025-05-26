@@ -94,6 +94,7 @@ resource "aws_instance" "my_ec2" {
             #!/bin/bash
             yum update -y
             yum install -y git python3
+	    yum install -y pip
             git clone https://github.com/divyesh-test/Project.git /home/ec2-user/app
             cd /home/ec2-user/app
 	    pip install -r requirements.txt
