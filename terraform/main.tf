@@ -95,7 +95,7 @@ resource "aws_instance" "my_ec2" {
             yum update -y
             yum install -y git python3
 	    yum install -y pip
-            git clone https://github.com/divyesh-test/Project.git /home/ec2-user/app
+            git clone https://github.com/divyesh-test/Project.git /home/ec2-user/
             cd /home/ec2-user/app
 	    pip install -r requirements.txt
             FLASK_APP=app.py nohup python3 app.py > output.log 2>&1 &
