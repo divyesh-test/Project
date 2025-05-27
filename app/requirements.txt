@@ -1,5 +1,5 @@
 flask
-request
+requests
 redirect
 sqlite3
 os
