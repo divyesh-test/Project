@@ -52,6 +52,14 @@ resource "aws_vpc_security_group_ingress_rule" "my_security_ingress" {
     ip_protocol = "tcp"
 }
 
+resource "aws_vpc_security_group_ingress_rule" "my_security_ingress" {
+    security_group_id = aws_security_group.my_security_group.id
+    cidr_ipv4 = "0.0.0.0/0"
+    from_port = 80
+    to_port = 80
+    ip_protocol = "tcp"
+}
+
 resource "aws_vpc_security_group_egress_rule" "my_security_egress" {
     security_group_id = aws_security_group.my_security_group.id
     #from_port = 0
@@ -94,10 +102,11 @@ resource "aws_instance" "my_ec2" {
             #!/bin/bash
             yum update -y
             yum install -y git python3
-	    yum install -y pip
-            git clone https://github.com/divyesh-test/Project.git /home/ec2-user/
-            cd /home/ec2-user/app
-	    pip install -r requirements.txt
+	        yum install -y python3-pip
+            git clone https://github.com/divyesh-test/Project.git
+            cd /home/ec2-user/Projects
+            cd app/
+	        pip install -r requirements.txt
             FLASK_APP=app.py nohup python3 app.py > output.log 2>&1 &
             EOF
 
