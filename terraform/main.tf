@@ -101,12 +101,12 @@ resource "aws_instance" "my_ec2" {
     user_data = <<-EOF
             #!/bin/bash
             yum update -y
-            yum install -y git python3
-	        yum install -y python3-pip
+            yum install -y git python3 python3-pip
             git clone https://github.com/divyesh-test/Project.git
-            cd /home/ec2-user/Projects
-            cd app/
-	        pip install -r requirements.txt
+            chown -R ec2-user:ec2-user /home/ec2-user/Project
+            cd /home/ec2-user/Project
+            cd ./app/
+            pip3 install -r requirements.txt
             FLASK_APP=app.py nohup python3 app.py > output.log 2>&1 &
             EOF
 
