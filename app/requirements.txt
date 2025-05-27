@@ -1,6 +1,3 @@
 flask
 requests
-redirect
-sqlite3
-os
-render_template
+
