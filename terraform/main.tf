@@ -52,7 +52,7 @@ resource "aws_vpc_security_group_ingress_rule" "my_security_ingress" {
     ip_protocol = "tcp"
 }
 
-resource "aws_vpc_security_group_ingress_rule" "my_security_ingress" {
+resource "aws_vpc_security_group_ingress_rule" "my_security_ingress_for_5678" {
     security_group_id = aws_security_group.my_security_group.id
     cidr_ipv4 = "0.0.0.0/0"
     from_port = 5678
