@@ -69,6 +69,45 @@ resource "aws_vpc_security_group_egress_rule" "my_security_egress" {
   
 }
 
+resource "aws_lb" "my_load_balancer" {
+    name = "load-balancer-test"
+    internal = false
+    load_balancer_type = "application"
+    security_groups = [aws_security_group.my_security_group.id]
+    subnets = [aws_subnet.my_public_subnet.id]
+  
+}
+
+resource "aws_lb_target_group" "alb_target_group" {
+    name = "ec2-target-group"
+    port = "5678"
+    protocol = "HTTP"
+    vpc_id = aws_vpc.my_vpc.id
+}
+
+resource "aws_lb_target_group_attachment" "alb_tg_attach" {
+    
+    for_each = {
+      for i, ec2 in aws_instance.my_ec2 : "ec2-${i}" => ec2.id
+    }
+    
+    target_group_arn = aws_lb_target_group.alb_target_group.arn
+    port = 5678
+    target_id = each.value
+  
+}
+
+resource "aws_lb_listener" "listener" {
+    load_balancer_arn = aws_lb.my_load_balancer.arn
+    port = 80
+    protocol = "HTTP"
+  
+    default_action {
+      type = "forward"
+      target_group_arn = aws_lb_target_group.alb_target_group.arn
+    }
+}
+
 resource "tls_private_key" "private_key" {
     algorithm = "RSA"
     rsa_bits = 4096
