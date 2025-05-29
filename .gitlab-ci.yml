@@ -1,0 +1,25 @@
+stages:
+  - test
+  - deploy
+
+abc:
+  stage: test
+  image: python
+  script: 
+    - echo "hello from test stage"
+    - pip install -r requirements.txt
+    - pytest
+  
+
+xyz:
+  stage: deploy 
+  script:
+    - echo "Deployment and test starting ... " 
+    - git pull
+    - cd Projects/app/
+    - pip  install -r requirements.txt
+    - python app.py
+
+
+
+
