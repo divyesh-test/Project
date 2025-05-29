@@ -15,7 +15,7 @@ abc:
 xyz:
   stage: deploy 
   script:
-    - echo "Deployment and test starting ... " 
+    - echo "Deployment and test starting .... " 
     - git pull
     - cd Projects/app/
     - pip  install -r requirements.txt
