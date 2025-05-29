@@ -7,7 +7,7 @@ abc:
   image: python
   script: 
     - echo "hello from test stage"
-    - git pull main
+    - git pull Gitlab main
     - pip install -r requirements.txt
     - pytest
   
