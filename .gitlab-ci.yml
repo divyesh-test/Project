@@ -1,16 +1,22 @@
 stages:
-  - test
+ # - test
   - deploy
 
-abc:
-  stage: test
-  image: 
-      name: hashicorp/terraform
-      entrypoint: [""]
-  script: 
-    - ls -la
-    - cd terraform
-    - terraform init
+# abc:
+#   stage: test
+#   image: 
+#       name: hashicorp/terraform
+#       entrypoint: [""]
+#   script: 
+#     - ls -la
+#     - cd terraform
+#     - terraform init
+#     - terraform apply -auto-approve
+#     - echo "EC2_PUBLIC_IP=$(terraform output -raw public_ipv4_address)" >> terraform.env
+
+#   artifacts:
+#     reports:
+#       dotenv: terraform.env
 
 xyz:
   stage: deploy 
@@ -24,7 +30,7 @@ xyz:
     - echo -e "Host *\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
   script:
     - echo "Deployment and test starting .... " 
-    - ssh ec2-user@$EC2_PUBLIC_IP
+    - ssh ec2-user@
     - git pull
     - cd Projects/app/
     - pip  install -r requirements.txt

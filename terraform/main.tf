@@ -16,6 +16,13 @@ resource "aws_subnet" "my_private_subnet" {
 resource "aws_subnet" "my_public_subnet" {
     vpc_id = aws_vpc.my_vpc.id
     cidr_block = "10.0.2.0/24"
+    availability_zone = "ap-south-1a"
+}
+
+resource "aws_subnet" "my_public_subnet2" {
+    vpc_id = aws_vpc.my_vpc.id
+    cidr_block = "10.0.3.0/24"
+    availability_zone = "ap-south-1c"
   
 }
 
@@ -74,7 +81,9 @@ resource "aws_lb" "my_load_balancer" {
     internal = false
     load_balancer_type = "application"
     security_groups = [aws_security_group.my_security_group.id]
-    subnets = [aws_subnet.my_public_subnet.id]
+    subnets = [
+        aws_subnet.my_public_subnet.id,
+        aws_subnet.my_public_subnet2.id ] 
   
 }
 
