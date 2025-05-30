@@ -6,6 +6,7 @@ abc:
   stage: test
   image: hashicorp/terraform:latest
   script: 
+    - cd terraform
     - terraform init
 
 xyz:
