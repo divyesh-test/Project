@@ -4,8 +4,9 @@ stages:
 
 abc:
   stage: test
-  image: hashicorp/terraform
-  entrypoint: [""]
+  image: 
+      name: hashicorp/terraform
+      entrypoint: [""]
   script: 
     - ls -la
     - cd terraform
