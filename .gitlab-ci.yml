@@ -4,7 +4,7 @@ stages:
 
 abc:
   stage: test
-  image: python
+  image: hashicorp/terraform:latest
   script: 
     - terraform init
 
