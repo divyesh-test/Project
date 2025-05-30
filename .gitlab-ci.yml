@@ -6,22 +6,21 @@ abc:
   stage: test
   image: python
   script: 
-    - echo "hello from test stage"
-  
+    - terraform init
 
 xyz:
   stage: deploy 
   image: alpine
   before_script:
     - apk add --no-cache openssh
+    - apk add git
     - eval "$(ssh-agent -s)"
     - echo "$SSH_PRIVATE_KEY"  | tr -d '\r' | ssh-add -
     - mkdir -p ~/.ssh
     - echo -e "Host *\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
-
-
   script:
     - echo "Deployment and test starting .... " 
+    - ssh ec2-user@$EC2_PUBLIC_IP
     - git pull
     - cd Projects/app/
     - pip  install -r requirements.txt
